@@ -1,5 +1,6 @@
 .history
 .env
 **/*/*.log
+dist
 node_modules
 gha-creds-*.json

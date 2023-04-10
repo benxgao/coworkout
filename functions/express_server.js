@@ -1,5 +1,5 @@
 const app = require('./app');
-const connectMongoDB = require('./common/mongo_conn');
+const connectMongoDB = require('./app/common/mongo_conn');
 
 const PORT = 8080;
 const HOST = '0.0.0.0';
