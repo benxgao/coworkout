@@ -20,15 +20,33 @@ jobs:
     - name: Use Node.js
       uses: actions/setup-node@v3
       with:
-        node-version: '16.x'
+        node-version: '18.x'
     - run: npm ci
+    - run: npm run build
+
     - id: 'auth'
       uses: 'google-github-actions/auth@v1'
       with:
         workload_identity_provider: 'projects/720803368237/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
         service_account: 'develop@coworkout-20230409.iam.gserviceaccount.com'
+ 
+    - run: echo "${{ vars.MONGO_HOST }}"
+    - run: echo "${{ secrets.TEST_SECRET }}"
+    
+    - name: Create env_file
+      run: |
+        echo "MONGO_HOST=${{ vars.MONGO_HOST }}" >> ./dist/.env
+        echo "MONGO_USERNAME=${{ vars.MONGO_USERNAME }}" >> ./dist/.env
+        echo "MONGO_PASSWORD=${{ secrets.MONGO_PASSWORD }}" >> ./dist/.env
 
-    - name: 'Init GCP'
+    - name: Run build_script
+      run: |
+        chmod +x ./scripts/build.sh
+        bash ./scripts/build.sh ${{ vars.MONGO_HOST }} ${{ secrets.TEST_SECRET }}
+      shell: bash
+
+
+    - name: 'Init gcp'
       uses: 'google-github-actions/setup-gcloud@v1'
       with:
         version: '>= 363.0.0'
@@ -37,9 +55,8 @@ jobs:
     - id: 'deploy_api'
       name: 'Deploy api'
       run: |
-        npm run build &&
         gcloud functions deploy api \
-          --runtime=nodejs16 \
+          --runtime=nodejs18 \
           --region=us-central1 \
           --source=./dist \
           --memory=128MB \
@@ -51,9 +68,8 @@ jobs:
     - id: 'deploy_cron'
       name: 'Deploy cron'
       run: |
-        npm run build &&
         gcloud functions deploy cron \
-          --runtime=nodejs16 \
+          --runtime=nodejs18 \
           --region=us-central1 \
           --source=./dist \
           --memory=128MB \

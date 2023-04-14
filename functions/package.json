@@ -11,8 +11,9 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf ./dist && npx tsc -p tsconfig.prod.json && cp package.json dist/package.json && cp package-lock.json dist/package-lock.json",
-    "fn": "npx functions-framework --source=./ --target=api --signature-type=http",
+    "reset_dist": "rm -rf ./dist && mkdir dist && cp package.json dist/package.json && cp package-lock.json dist/package-lock.json",
+    "build": "npm run reset_dist && npx tsc -p tsconfig.prod.json",
+    "api": "npx functions-framework --source=./ --target=api --signature-type=http",
     "watch": "npx tsc-watch --onSuccess 'npm run fn'",
     "start": "nodemon ./express_server.js",
     "test": "jest"

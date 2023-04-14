@@ -1,4 +1,5 @@
 const express = require('express');
+const { inspect } = require('util');
 
 const mongoConn = require('./common/mongo_conn');
 
@@ -9,6 +10,8 @@ require('dotenv').config();
 const app = express();
 
 app.use(express.json());
+
+console.log('env', inspect(process.env));
 
 app.use(async (req, res, next, error) => {
   if (error) {
