@@ -1,7 +1,4 @@
 const mongoose = require('mongoose');
-// const { MONGO_URI } = require('../constants');
-// const conn = require('../common/mongo_conn');
-// const conn = mongoose.createConnection(MONGO_URI);
 
 const options = {
   toJSON: {

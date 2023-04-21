@@ -3,13 +3,12 @@
   "version": "0.1.0",
   "description": "Practice of Node.JS Serverless architecture",
   "keywords": [
-    "serverless",
-    "node"
+    "Serverless",
+    "Node.JS"
   ],
   "author": "Xingbin Gao <xingbingao@gmail.com> (https://github.com/benxgao)",
   "license": "Apache-2.0",
-  "private": true,
-  "main": "index.js",
+  "main": "functions/express_server.js",
   "scripts": {
     "reset_dist": "rm -rf ./dist && mkdir dist && cp package.json dist/package.json && cp package-lock.json dist/package-lock.json",
     "build": "npm run reset_dist && npx tsc -p tsconfig.prod.json",
@@ -27,7 +26,6 @@
     "body-parser": "^1.20.2",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "isomorphic-fetch": "^3.0.0",
     "mongoose": "^7.0.2",
     "ramda": "^0.29.0"
   },
@@ -64,9 +62,6 @@
     "prettier": "^2.8.4",
     "prettier-eslint": "^15.0.1",
     "typescript": "^5.0.4"
-  },
-  "bugs": {
-    "url": "https://github.com/benxgao/coworkout"
   },
   "homepage": "https://github.com/benxgao/coworkout#readme"
 }
